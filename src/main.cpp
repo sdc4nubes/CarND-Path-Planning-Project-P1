@@ -180,7 +180,7 @@ int main() {
               // set (x,y) points to the spline
               s.set_points(ptsx, ptsy);
 							// initialize target values
-							double target_x = 30 * vp.speed_limit / ref_vel;
+							double target_x = horizon;
               double target_y = s(target_x);
               double target_dist = sqrt(pow(target_x, 2) + pow(target_y, 2));
               double x_add_on = 0;
