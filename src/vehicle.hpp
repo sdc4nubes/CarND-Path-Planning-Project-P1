@@ -9,7 +9,7 @@ using namespace std;
 class VehiclePlanner {
   public:
     int curr_lane;
-		double speed_limit = 22.352 - 0.5;
+		double speed_limit = 22.352;
     double curr_lead_vehicle_speed = speed_limit;
     double target_vehicle_speed;
     vector<double> avg_costs = {15, 15, 15};
