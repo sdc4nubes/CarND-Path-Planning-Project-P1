@@ -20,7 +20,6 @@ int VehiclePlanner::lanePlanner(double s, double d, vector<vector<double>> senso
 		target_vehicle_speed = speed_limit;
     if( vehicle[0] < 100) target_vehicle_speed = vehicle[1];
   }
-	cout << new_lane << ", " << target_vehicle_speed << endl;
   // Return New Lane (0 = stay in lane, -4 = change left, 4 = change right)
   if (new_lane == lane) return 0;
   else if (new_lane < lane) return -4;
@@ -95,8 +94,7 @@ int VehiclePlanner::laneCost(double s, int lane, vector<vector<double>> sensor_f
 			if (front_vehicle[1] < check_speed) costs[i] = 15;
 			if (front_vehicle[1] < speed_limit) costs[i] += 5;
 		}
-		if (back_vehicle[0] < safe_distance && back_vehicle[1] > check_speed &&
-			lane != i) costs[i] = 15;
+		if (back_vehicle[0] < safe_distance && lane != i) costs[i] = 15;
     // Simple moving average of costs over the last ten iterations
     avg_costs[i] = (avg_costs[i] * 9) + costs[i];
     avg_costs[i] /= 10;
