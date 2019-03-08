@@ -142,7 +142,6 @@ int main() {
             double move = vp.lanePlanner(frenet_vec[0], frenet_vec[1], sensor_fusion);
             double lane = vp.curr_lane;
             double next_d = (lane * 4) + 2 + move;
-						cout << move << endl;
             // Make sure the chosen lane is not blocked
             int check_lane = vp.laneCalc(next_d);
             vector<double> front_vehicle = vp.closestVehicle(
