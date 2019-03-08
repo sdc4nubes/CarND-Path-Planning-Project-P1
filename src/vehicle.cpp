@@ -18,7 +18,7 @@ int VehiclePlanner::lanePlanner(double s, double d, vector<vector<double>> senso
     new_lane = laneCost(s, lane, sensor_fusion);
     vector <double> vehicle = closestVehicle(s, new_lane, sensor_fusion, true);
 		target_vehicle_speed = speed_limit;
-    if( vehicle[0] < 100) target_vehicle_speed = vehicle[1];
+    if( vehicle[0] < safe_distance) target_vehicle_speed = vehicle[1];
   }
   // Return New Lane (0 = stay in lane, -4 = change left, 4 = change right)
   if (new_lane == lane) return 0;
