@@ -94,6 +94,7 @@ int VehiclePlanner::laneCost(double s, int lane, vector<vector<double>> sensor_f
     avg_costs[i] = (avg_costs[i] * 9) + costs[i];
     avg_costs[i] /= 10;
   }
+	cout << avg_costs << endl;
   // Evaluate potential lane change based on lowest cost
   if (lane == 0) {
     return min_element(avg_costs.begin(), avg_costs.end() - 1) - avg_costs.begin();
