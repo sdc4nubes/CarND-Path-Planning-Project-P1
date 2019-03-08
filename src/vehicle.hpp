@@ -9,10 +9,10 @@ using namespace std;
 class VehiclePlanner {
   public:
     int curr_lane;
-		double speed_limit = 22.352 * 2;
+		double speed_limit = 22.353;
     double curr_lead_vehicle_speed = speed_limit;
     double target_vehicle_speed;
-		int safe_distance = pow(speed_limit / 5, 2);
+		int safe_distance = 20;
     vector<double> avg_costs = {15, 15, 15};
     // Decides whether to go left, right, or stay in the same lane
     // Returns amount of meters left or right to move
