@@ -76,6 +76,9 @@ int VehiclePlanner::laneCost(double s, int lane, vector<vector<double>> sensor_f
   vector <double> costs = {0,0,0};
   vector <double> front_vehicle;
   vector <double> back_vehicle;
+	vector <double> vehicle = closestVehicle(s, lane, sensor_fusion, true);
+	if (vehicle[0] > 100) target_vehicle_speed = speed_limit;
+	else target_vehicle_speed = vehicle[1];
   for (int i = 0; i < 3; i++) {
 		// Lane Cost
     costs[i] = i * 5;
@@ -86,15 +89,17 @@ int VehiclePlanner::laneCost(double s, int lane, vector<vector<double>> sensor_f
     if (i != lane && (front_vehicle[0] < 75 || back_vehicle[0] < 75)) costs[i] = 15; 
 		// Positive cost for slower vehicle in front
 		if (front_vehicle[0] < 1000) {
-			if (front_vehicle[1] < curr_lead_vehicle_speed) costs[i] = 15;
+			if (front_vehicle[1] < target_vehicle_speed) costs[i] = 15;
 			if (front_vehicle[1] < speed_limit) costs[i] += 5;
 		}
-		if (back_vehicle[0] < 1000 && back_vehicle[1] > curr_lead_vehicle_speed) costs[i] = 15;
+		if (back_vehicle[0] < 1000 && back_vehicle[1] > target_vehicle_speed &&
+			lane != i) costs[i] = 15;
     // Simple moving average of costs over the last ten iterations
     avg_costs[i] = (avg_costs[i] * 9) + costs[i];
     avg_costs[i] /= 10;
   }
-	for (auto x = end(avg_costs); x != begin(avg_costs);) cout << *--x << ' ';
+	for (auto x = end(avg_costs); x != begin(avg_costs);) cout << *--x << ', ';
+	cout << endl;
   // Evaluate potential lane change based on lowest cost
   if (lane == 0) {
     return min_element(avg_costs.begin(), avg_costs.end() - 1) - avg_costs.begin();
