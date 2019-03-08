@@ -153,7 +153,7 @@ int main() {
               next_d = (lane * 4) + 2;
               if (check_lane != lane) vp.target_vehicle_speed = vp.curr_lead_vehicle_speed;
             }
-						int horizon = 50;
+						int horizon = ref_vel;
             // Set further waypoints based on going further along highway in desired lane
             vector <double> wp1 = getXY(car_s + horizon, next_d, map_waypoints_s, 
 																				map_waypoints_x, map_waypoints_y);
@@ -180,7 +180,7 @@ int main() {
               // set (x,y) points to the spline
               s.set_points(ptsx, ptsy);
 							// initialize target values
-							double target_x = horizon;
+							double target_x = 30;
               double target_y = s(target_x);
               double target_dist = sqrt(pow(target_x, 2) + pow(target_y, 2));
               double x_add_on = 0;
