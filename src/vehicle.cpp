@@ -20,7 +20,7 @@ int VehiclePlanner::lanePlanner(double s, double d, vector<vector<double>> senso
 		target_vehicle_speed = speed_limit;
     if( vehicle[0] < 100) target_vehicle_speed = vehicle[1];
   }
-	cout << target_vehicle_speed << endl;
+	cout << new_lane << ", " << target_vehicle_speed << endl;
   // Return New Lane (0 = stay in lane, -4 = change left, 4 = change right)
   if (new_lane == lane) return 0;
   else if (new_lane < lane) return -4;
