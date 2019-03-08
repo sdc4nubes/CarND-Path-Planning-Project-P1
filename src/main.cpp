@@ -140,6 +140,7 @@ int main() {
             vector<double> frenet_vec = getFrenet(
 							ref_x, ref_y, ref_yaw, map_waypoints_x, map_waypoints_y);
             double move = vp.lanePlanner(frenet_vec[0], frenet_vec[1], sensor_fusion);
+						move = 0;
             double lane = vp.curr_lane;
             double next_d = (lane * 4) + 2 + move;
             // Make sure the chosen lane is not blocked
@@ -154,7 +155,6 @@ int main() {
               next_d = (lane * 4) + 2;
               if (check_lane != lane) vp.target_vehicle_speed = vp.curr_lead_vehicle_speed;
             }
-						next_d = (lane * 4) + 2;
 						int horizon = 50;
             // Set further waypoints based on going further along highway in desired lane
             vector <double> wp1 = getXY(car_s + horizon, next_d, map_waypoints_s, 
