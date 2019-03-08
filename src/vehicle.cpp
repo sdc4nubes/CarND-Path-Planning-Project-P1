@@ -19,6 +19,7 @@ int VehiclePlanner::lanePlanner(double s, double d, vector<vector<double>> senso
     vector <double> vehicle = closestVehicle(s, new_lane, sensor_fusion, true);
     target_vehicle_speed = vehicle[1];
   }
+	cout << target_vehicle_speed << endl;
   // Return New Lane (0 = stay in lane, -4 = change left, 4 = change right)
   if (new_lane == lane) return 0;
   else if (new_lane < lane) return -4;
@@ -98,7 +99,7 @@ int VehiclePlanner::laneCost(double s, int lane, vector<vector<double>> sensor_f
     avg_costs[i] = (avg_costs[i] * 9) + costs[i];
     avg_costs[i] /= 10;
   }
-	for (auto x = end(avg_costs); x != begin(avg_costs);) cout << *--x << ' ';
+	for (auto x = begin(avg_costs); x != end(avg_costs); x++) cout << *x << ' ';
 	cout << endl;
   // Evaluate potential lane change based on lowest cost
   if (lane == 0) {
