@@ -9,7 +9,8 @@ using namespace std;
 class VehiclePlanner {
   public:
     int curr_lane;
-    double curr_lead_vehicle_speed = 22.352 - 0.5;
+		double speed_limit = 22.352 - 0.5;
+    double curr_lead_vehicle_speed = speed_limit;
     double target_vehicle_speed;
     vector<double> avg_costs = {0,0,0};
     // Decides whether to go left, right, or stay in the same lane

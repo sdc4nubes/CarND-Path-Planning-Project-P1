@@ -140,7 +140,6 @@ int main() {
             vector<double> frenet_vec = getFrenet(
 							ref_x, ref_y, ref_yaw, map_waypoints_x, map_waypoints_y);
             double move = vp.lanePlanner(frenet_vec[0], frenet_vec[1], sensor_fusion);
-						move = 0;
             double lane = vp.curr_lane;
             double next_d = (lane * 4) + 2 + move;
             // Make sure the chosen lane is not blocked
@@ -151,7 +150,7 @@ int main() {
 							frenet_vec[0], check_lane, sensor_fusion, false);
             // If not enough room to change lanes, stay in lane at leading vehicle speed 
             if (front_vehicle[0] < 10 or back_vehicle[0] < 10 or 
-							vp.avg_costs[check_lane] <= -5) {
+							vp.avg_costs[check_lane] > 10) {
               next_d = (lane * 4) + 2;
               if (check_lane != lane) vp.target_vehicle_speed = vp.curr_lead_vehicle_speed;
             }

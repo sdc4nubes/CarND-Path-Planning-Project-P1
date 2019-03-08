@@ -9,7 +9,7 @@ int VehiclePlanner::lanePlanner(double s, double d, vector<vector<double>> senso
 	// if adequate space in front, stay in lane and go near the speed limit
   if (distance > 20) {
     new_lane = lane;
-    target_vehicle_speed = speed_limit;
+    target_vehicle_speed = 22.352 - 0.5;
 		// Reset average costs for laneCost()
     avg_costs = {0,0,0}; 
     return 0;
@@ -77,19 +77,26 @@ int VehiclePlanner::laneCost(double s, int lane, vector<vector<double>> sensor_f
   vector <double> front_vehicle;
   vector <double> back_vehicle;
   for (int i = 0; i < 3; i++) {
-		// Lane Cost
-    costs[i] = i * 5;
-		// Get closest vehicle ahead and behind distance and speed for each lane
+		// Negative cost (benefit) for staying in lane
+    if (i == lane) costs[i] -= 0.5;
     front_vehicle = closestVehicle(s, i, sensor_fusion, true);
     back_vehicle = closestVehicle(s, i, sensor_fusion, false);
-		// Prohibitive cost for vehicle too close
-    if (front_vehicle[0] < 10 || back_vehicle[0] < 10) costs[i] = 15; 
-		// Positive cost for slower vehicle in front
-		if (front_vehicle[0] < 1000) {
-			if (front_vehicle[1] < curr_lead_vehicle_speed) costs[i] += 10;
-			if (front_vehicle[1] < speed_limit) costs[i] += 5;
-		}
-		if (back_vehicle[0] < 1000 && back_vehicle[1] > speed_limit) costs[i] += 15;
+		// Negative cost if wide open lane
+    if (front_vehicle[0] > 1000 and back_vehicle[0] > 1000) costs[i] -= 5; 
+    else {
+			// Positive cost for car too close in front
+      if (front_vehicle[0] < 10) costs[i] = 5;
+			// Positive cost for car too close in back
+      if (back_vehicle[0] < 10) costs[i] = 5;
+			// Negative cost for large open distance in front of vehicle
+      costs[i] -= 1 + (10/(front_vehicle[0]/3));
+			// Negative cost for large open distance behind vehicle
+      costs[i] -= 1 + (10/(back_vehicle[0]/3)); 
+			// Negative cost for faster vehicle in fromt
+      costs[i] -= 1 + (10/(front_vehicle[1]/2)); 
+			// Negative cost for slower vehicle behind
+      costs[i] -= 1 / (back_vehicle[1]/2); 
+    }
     // Simple moving average of costs over the last ten iterations
     avg_costs[i] = (avg_costs[i] * 9) + costs[i];
     avg_costs[i] /= 10;
