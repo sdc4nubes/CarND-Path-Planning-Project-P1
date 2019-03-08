@@ -151,7 +151,7 @@ int main() {
             //vector<double> front_vehicle = vp.closestVehicle(
 						//	frenet_vec[0], check_lane, sensor_fusion, true);
             //vector<double> back_vehicle = vp.closestVehicle(
-							frenet_vec[0], check_lane, sensor_fusion, false);
+						//	frenet_vec[0], check_lane, sensor_fusion, false);
             // If not enough room to change lanes, stay in lane at leading vehicle speed 
             //if (vp.avg_costs[check_lane] > vp.safe_dist {
             //  next_d = (lane * 4) + 2;
