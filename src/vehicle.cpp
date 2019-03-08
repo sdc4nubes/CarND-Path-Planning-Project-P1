@@ -7,7 +7,7 @@ int VehiclePlanner::lanePlanner(double s, double d, vector<vector<double>> senso
 	// Stay in current lane until deciding to change
   curr_lane = lane; 
 	// if adequate space in front, stay in lane and go near the speed limit
-  if (distance > 100) {
+  if (distance > 20) {
     new_lane = lane;
     target_vehicle_speed = speed_limit;
 		// Reset average costs for laneCost()
