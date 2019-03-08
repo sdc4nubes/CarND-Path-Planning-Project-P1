@@ -140,23 +140,9 @@ int main() {
             vector<double> frenet_vec = getFrenet(
 							ref_x, ref_y, ref_yaw, map_waypoints_x, map_waypoints_y);
 						double move = 0;
-						//if (vp.move_to == 0)
-							move = vp.lanePlanner(frenet_vec[0], frenet_vec[1], sensor_fusion);
+						move = vp.lanePlanner(frenet_vec[0], frenet_vec[1], sensor_fusion);
             double lane = vp.curr_lane;
             double next_d = (lane * 4) + 2 + move;
-						//if (move != 0) vp.move_to = next_d;
-						//else if (lane == vp.move_to) vp.move_to = 0;
-            // Make sure the chosen lane is not blocked
-            //int check_lane = vp.laneCalc(next_d);
-            //vector<double> front_vehicle = vp.closestVehicle(
-						//	frenet_vec[0], check_lane, sensor_fusion, true);
-            //vector<double> back_vehicle = vp.closestVehicle(
-						//	frenet_vec[0], check_lane, sensor_fusion, false);
-            // If not enough room to change lanes, stay in lane at leading vehicle speed 
-            //if (vp.avg_costs[check_lane] > vp.safe_dist {
-            //  next_d = (lane * 4) + 2;
-            //  if (check_lane != lane) vp.target_vehicle_speed = vp.curr_lead_vehicle_speed;
-            //}
 						int horizon = 50;
             // Set further waypoints based on going further along highway in desired lane
             vector <double> wp1 = getXY(car_s + horizon, next_d, map_waypoints_s, 
