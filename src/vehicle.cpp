@@ -7,7 +7,7 @@ int VehiclePlanner::lanePlanner(double s, double d, vector<vector<double>> senso
 	// Stay in current lane until deciding to change
   curr_lane = lane; 
 	// if adequate space in front, stay in lane and go near the speed limit
-  if (distance > 20) {
+  if (distance > safe_distance) {
     new_lane = lane;
     target_vehicle_speed = speed_limit;
 		// Reset average costs for laneCost()
@@ -88,14 +88,14 @@ int VehiclePlanner::laneCost(double s, int lane, vector<vector<double>> sensor_f
 		// Get closest vehicle ahead and behind distance and speed for each lane
     front_vehicle = closestVehicle(s, i, sensor_fusion, true);
     back_vehicle = closestVehicle(s, i, sensor_fusion, false);
-		// Prohibitive cost for vehicle too close
-    if (i != lane && (front_vehicle[0] < 75 || back_vehicle[0] < 75)) costs[i] = 15; 
+		// Prohibitive cost for vehicle ahead too close
+    if (i != lane && front_vehicle[0] < safe_distance) costs[i] = 15; 
 		// Positive cost for slower vehicle in front
-		if (front_vehicle[0] < 1000) {
+		if (front_vehicle[0] < safe_distance) {
 			if (front_vehicle[1] < check_speed) costs[i] = 15;
 			if (front_vehicle[1] < speed_limit) costs[i] += 5;
 		}
-		if (back_vehicle[0] < 1000 && back_vehicle[1] > check_speed &&
+		if (back_vehicle[0] < safe_distance && back_vehicle[1] > check_speed &&
 			lane != i) costs[i] = 15;
     // Simple moving average of costs over the last ten iterations
     avg_costs[i] = (avg_costs[i] * 9) + costs[i];
