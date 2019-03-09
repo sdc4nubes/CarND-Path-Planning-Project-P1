@@ -144,8 +144,8 @@ int main() {
             double next_d = (lane * 4) + 2 + move;
 						cout << next_d << ", " << car_d << endl;
 						if (move == 0) {
-							if (fabs(car_d - next_d) > .3) vp.horizon -= 1;
-							else vp.horizon += 1;
+							if (fabs(car_d - next_d) > .3) vp.horizon -= .2;
+							else vp.horizon += .2;
 						}
 						else vp.horizon = 50;
 						if (vp.horizon > 50) vp.horizon = 50;
