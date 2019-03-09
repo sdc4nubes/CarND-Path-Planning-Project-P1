@@ -139,10 +139,10 @@ int main() {
             // Determine whether to change lanes
             vector<double> frenet_vec = getFrenet(
 							ref_x, ref_y, ref_yaw, map_waypoints_x, map_waypoints_y);
-						double move = 0;
-						move = vp.lanePlanner(frenet_vec[0], frenet_vec[1], sensor_fusion);
+						double move = vp.lanePlanner(frenet_vec[0], frenet_vec[1], sensor_fusion);
             double lane = vp.curr_lane;
             double next_d = (lane * 4) + 2 + move;
+						cout << next_d << endl;
 						int horizon = 50;
             // Set further waypoints based on going further along highway in desired lane
             vector <double> wp1 = getXY(car_s + horizon, next_d, map_waypoints_s, 
@@ -179,12 +179,9 @@ int main() {
               const double accel = MAX_ACCEL * 0.02 * 0.8;
               for(int i = 0; i < horizon - path_size; i++) {
 								// Accelerate if under target speed
-                if (ref_vel < vp.target_vehicle_speed - accel) {
-                  ref_vel += accel;
+                if (ref_vel < vp.target_vehicle_speed - accel) ref_vel += accel;
 								// Brake if over target speed
-                } else if (ref_vel > vp.target_vehicle_speed + accel) { 
-                  ref_vel -= accel;
-                }
+                else if (ref_vel > vp.target_vehicle_speed + accel) ref_vel -= accel;
                 // Calculate points along new path
                 double N = (target_dist / (.02 * ref_vel));
                 double x_point = x_add_on + (target_x) / N;
