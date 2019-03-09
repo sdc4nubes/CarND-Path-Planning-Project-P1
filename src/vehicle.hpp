@@ -22,7 +22,7 @@ class VehiclePlanner {
     // Returns distance and speed of that vehicle
     vector<double> closestVehicle(
 			double s, int lane, vector<vector<double>> sensor_fusion, bool direction);
-    // Assigs costs to each lane on factors such as distance to nearest vehicle & speed
+    // Assigns costs to each lane on factors such as distance to nearest vehicle & speed
     // Returns the lane with the lowest cost (0 left, 1 middle, 2 right)
     int laneCost(double s, int lane, vector<vector<double>> sensor_fusion);
 };
