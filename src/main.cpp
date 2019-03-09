@@ -169,7 +169,7 @@ int main() {
               // set (x,y) points to the spline
               s.set_points(ptsx, ptsy);
 							// initialize target values
-							double target_x = 20;
+							double target_x = int(car_speed);
               double target_y = s(target_x);
               double target_dist = sqrt(pow(target_x, 2) + pow(target_y, 2));
               double x_add_on = 0;
