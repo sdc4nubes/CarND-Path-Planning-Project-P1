@@ -9,13 +9,10 @@ using namespace std;
 class VehiclePlanner {
   public:
     int curr_lane;
-		int next_lane;
-		double move = 0;
 		double speed_limit = 22.3;
     double curr_lead_vehicle_speed = speed_limit;
     double target_vehicle_speed;
 		int safe_distance = 20;
-		bool changing_lanes = false;
     vector<double> avg_costs = {15, 15, 15};
     // Decides whether to go left, right, or stay in the same lane
     // Returns amount of meters left or right to move

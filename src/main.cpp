@@ -139,18 +139,9 @@ int main() {
             // Determine whether to change lanes
             vector<double> frenet_vec = getFrenet(
 							ref_x, ref_y, ref_yaw, map_waypoints_x, map_waypoints_y);
+						double move = vp.lanePlanner(frenet_vec[0], frenet_vec[1], sensor_fusion);
 						double lane = vp.curr_lane;
-						double next_d;
-						if (vp.changing_lanes && vp.next_lane == lane) vp.changing_lanes = false;
-						else if (vp.changing_lanes) next_d = (lane * 4) + 2 + vp.move;
-						if (not vp.changing_lanes) {
-							vp.move = vp.lanePlanner(frenet_vec[0], frenet_vec[1], sensor_fusion);
-							next_d = (lane * 4) + 2 + vp.move;
-							if (vp.move != 0) {
-								vp.changing_lanes = true;
-								vp.next_lane = vp.laneCalc(next_d);
-							}
-						}
+						double next_d = (lane * 4) + 2 + move;
 						int horizon = 50;
             // Set further waypoints based on going further along highway in desired lane
             vector <double> wp1 = getXY(car_s + horizon, next_d, map_waypoints_s, 
