@@ -143,7 +143,7 @@ int main() {
             double lane = vp.curr_lane;
             double next_d = (lane * 4) + 2 + move;
 						int horizon = 50;
-						if (car_speed <= vp.speed_limit * .8) horizon = 40;
+						if (car_speed <= vp.speed_limit * .8) horizon = 30;
             // Set further waypoints based on going further along highway in desired lane
             vector <double> wp1 = getXY(car_s + horizon, next_d, map_waypoints_s, 
 																				map_waypoints_x, map_waypoints_y);
