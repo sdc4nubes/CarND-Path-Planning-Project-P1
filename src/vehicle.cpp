@@ -8,7 +8,7 @@ int VehiclePlanner::lanePlanner(double s, double d, vector<vector<double>> senso
   curr_lane = lane; 
 	// if adequate space in front and not in right lane,
 	// stay in lane and go near the speed limit
-  if (distance > safe_distance && lane != 2) {
+  if (distance > safe_distance && lane == 1) {
     new_lane = lane;
     target_vehicle_speed = speed_limit;
     return 0;
@@ -83,7 +83,7 @@ int VehiclePlanner::laneCost(double s, int lane, vector<vector<double>> sensor_f
 	else check_speed = vehicle[1];
   for (int i = 0; i < 3; i++) {
 		// Lane Cost
-    costs[i] = pow(i, 3);
+    costs[i] = fabs(i % 2 -1) * 8;
 		// Get closest vehicle ahead and behind distance and speed for each lane
     front_vehicle = closestVehicle(s, i, sensor_fusion, true);
     back_vehicle = closestVehicle(s, i, sensor_fusion, false);
