@@ -12,7 +12,7 @@ class VehiclePlanner {
 		double speed_limit = 22.3;
     double curr_lead_vehicle_speed = speed_limit;
     double target_vehicle_speed;
-		int safe_distance = 30;
+		int safe_distance = 20;
     // Decides whether to go left, right, or stay in the same lane
     // Returns amount of meters left or right to move
     int lanePlanner(double s, double d, vector<vector<double>> sensor_fusion);
