@@ -142,13 +142,13 @@ int main() {
 						double move = vp.lanePlanner(frenet_vec[0], frenet_vec[1], sensor_fusion);
             double lane = vp.curr_lane;
             double next_d = (lane * 4) + 2 + move;
-						vp.horizon = max(30., ref_vel);
+						int horizon = 40;
             // Set further waypoints based on going further along highway in desired lane
-            vector <double> wp1 = getXY(car_s + vp.horizon, next_d, map_waypoints_s, 
+            vector <double> wp1 = getXY(car_s + horizon, next_d, map_waypoints_s, 
 																				map_waypoints_x, map_waypoints_y);
-            vector <double> wp2 = getXY(car_s + vp.horizon * 2, next_d, map_waypoints_s, 
+            vector <double> wp2 = getXY(car_s + horizon * 2, next_d, map_waypoints_s, 
 																				map_waypoints_x, map_waypoints_y);
-            vector <double> wp3 = getXY(car_s + vp.horizon * 3, next_d, map_waypoints_s, 
+            vector <double> wp3 = getXY(car_s + horizon * 3, next_d, map_waypoints_s, 
 																	map_waypoints_x, map_waypoints_y);
             ptsx.push_back(wp1[0]);
             ptsx.push_back(wp2[0]);
