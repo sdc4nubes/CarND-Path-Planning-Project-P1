@@ -139,9 +139,16 @@ int main() {
             // Determine whether to change lanes
             vector<double> frenet_vec = getFrenet(
 							ref_x, ref_y, ref_yaw, map_waypoints_x, map_waypoints_y);
-						double move = vp.lanePlanner(frenet_vec[0], frenet_vec[1], sensor_fusion);
-            double lane = vp.curr_lane;
-            double next_d = (lane * 4) + 2 + move;
+						double move = 0;
+						double lane = vp.curr_lane;
+						double next_d;
+						if (vp.changing_lanes && vp.next_lane == lane) vp.changing_lanes = false;
+						if (not vp.changing_lanes) {
+							move = vp.lanePlanner(frenet_vec[0], frenet_vec[1], sensor_fusion);
+							if (move != 0) vp.changing_lanes = true;
+						}
+						next_d = (lane * 4) + 2 + move;
+						vp.next_lane = vp.laneCalc(next_d);
 						int horizon = 50;
             // Set further waypoints based on going further along highway in desired lane
             vector <double> wp1 = getXY(car_s + horizon, next_d, map_waypoints_s, 
@@ -169,7 +176,7 @@ int main() {
               // set (x,y) points to the spline
               s.set_points(ptsx, ptsy);
 							// initialize target values
-							double target_x = max(5, int(car_speed));
+							double target_x = 30;
               double target_y = s(target_x);
               double target_dist = sqrt(pow(target_x, 2) + pow(target_y, 2));
               double x_add_on = 0;
