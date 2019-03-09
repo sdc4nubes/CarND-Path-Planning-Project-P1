@@ -79,7 +79,7 @@ int VehiclePlanner::laneCost(double s, int lane, vector<vector<double>> sensor_f
   vector <double> back_vehicle;
 	vector <double> vehicle = closestVehicle(s, lane, sensor_fusion, true);
 	double check_speed;
-	if (vehicle[0] > 100) check_speed = speed_limit;
+	if (vehicle[0] > safe_distance) check_speed = speed_limit;
 	else check_speed = vehicle[1];
   for (int i = 0; i < 3; i++) {
 		// Lane Cost
