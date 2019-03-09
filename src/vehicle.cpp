@@ -83,8 +83,8 @@ int VehiclePlanner::laneCost(double s, int lane, vector<vector<double>> sensor_f
 	else check_speed = vehicle[1];
   for (int i = 0; i < 3; i++) {
 		// Lane Cost
-    costs[i] = fabs(i % 2 -1) * 8;
-		if (i == 0) costs[i] -= 1;
+    costs[i] = fabs(i % 2 -1) * 4;
+		if (i == 0) costs[i] -= .1;
 		// Get closest vehicle ahead and behind distance and speed for each lane
     front_vehicle = closestVehicle(s, i, sensor_fusion, true);
     back_vehicle = closestVehicle(s, i, sensor_fusion, false);
@@ -95,7 +95,7 @@ int VehiclePlanner::laneCost(double s, int lane, vector<vector<double>> sensor_f
 			(i != 1 && front_vehicle[0] < safe_distance * 2)) {
 			if (front_vehicle[1] < check_speed) costs[i] = 15;
 			if (front_vehicle[1] < speed_limit && front_vehicle[1] > check_speed)
-				if (front_vehicle[0] > safe_distance * .5) costs[i] += 10;
+				if (front_vehicle[0] > safe_distance * .5) costs[i] += 5 - vehicle[1] / 10;
 				else costs[i] = 15;
 		}
 		if (lane != i) {
