@@ -9,7 +9,7 @@ using namespace std;
 class VehiclePlanner {
   public:
     int curr_lane;
-		double speed_limit = 22.353;
+		double speed_limit = 22.352;
     double curr_lead_vehicle_speed = speed_limit;
     double target_vehicle_speed;
 		int safe_distance = 20;
