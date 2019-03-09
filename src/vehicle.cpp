@@ -3,6 +3,7 @@
 int VehiclePlanner::lanePlanner(double s, double d, vector<vector<double>> sensor_fusion) {
   int lane = laneCalc(d);
   int new_lane;
+	cout << "I am at lane planning" << endl;
   double distance = closestVehicle(s, lane, sensor_fusion, true)[0];
 	// Stay in current lane until deciding to change
   curr_lane = lane; 
@@ -78,7 +79,7 @@ int VehiclePlanner::laneCost(double s, int lane, vector<vector<double>> sensor_f
   vector <double> front_vehicle;
   vector <double> back_vehicle;
 	vector <double> vehicle = closestVehicle(s, lane, sensor_fusion, true);
-	cout << "I am here!"
+	cout << "I at costs!" << endl;
 	double check_speed;
 	if (vehicle[0] > safe_distance) check_speed = speed_limit;
 	else check_speed = vehicle[1];
