@@ -150,6 +150,7 @@ int main() {
 								next_d += move;
 								vp.next_lane = vp.laneCalc(next_d);
 							}
+						}
 						int horizon = 50;
             // Set further waypoints based on going further along highway in desired lane
             vector <double> wp1 = getXY(car_s + horizon, next_d, map_waypoints_s, 
