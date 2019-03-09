@@ -10,6 +10,7 @@ class VehiclePlanner {
   public:
     int curr_lane;
 		int next_lane;
+		double move = 0;
 		double speed_limit = 22.3;
     double curr_lead_vehicle_speed = speed_limit;
     double target_vehicle_speed;

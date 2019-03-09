@@ -139,15 +139,14 @@ int main() {
             // Determine whether to change lanes
             vector<double> frenet_vec = getFrenet(
 							ref_x, ref_y, ref_yaw, map_waypoints_x, map_waypoints_y);
-						double move = 0;
 						double lane = vp.curr_lane;
-						double next_d = (lane * 4) + 2;
+						double next_d = (lane * 4) + 2 + vp.move;
 						if (vp.changing_lanes && vp.next_lane == lane) vp.changing_lanes = false;
 						if (not vp.changing_lanes) {
-							move = vp.lanePlanner(frenet_vec[0], frenet_vec[1], sensor_fusion);
-							if (move != 0) {
+							vp.move = vp.lanePlanner(frenet_vec[0], frenet_vec[1], sensor_fusion);
+							next_d = (lane * 4) + 2 + vp.move;
+							if (vp.move != 0) {
 								vp.changing_lanes = true;
-								next_d += move;
 								vp.next_lane = vp.laneCalc(next_d);
 							}
 						}
