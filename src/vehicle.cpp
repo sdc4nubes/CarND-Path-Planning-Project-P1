@@ -84,6 +84,7 @@ int VehiclePlanner::laneCost(double s, int lane, vector<vector<double>> sensor_f
   for (int i = 0; i < 3; i++) {
 		// Lane Cost
     costs[i] = fabs(i % 2 -1) * 8;
+		if (i == 0) costs[i] -= 1;
 		// Get closest vehicle ahead and behind distance and speed for each lane
     front_vehicle = closestVehicle(s, i, sensor_fusion, true);
     back_vehicle = closestVehicle(s, i, sensor_fusion, false);
