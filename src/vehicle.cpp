@@ -93,13 +93,15 @@ int VehiclePlanner::laneCost(double s, int lane, vector<vector<double>> sensor_f
 		// Positive cost for slower vehicle in front
 		if (front_vehicle[0] < safe_distance * 1.1) {
 			if (front_vehicle[1] < check_speed) costs[i] = 15;
-			if (front_vehicle[1] < speed_limit) costs[i] += 5;
+			if (front_vehicle[1] < speed_limit) costs[i] += 6;
 		}
-		if (lane != i)
+		if (lane != i) {
 			if ((back_vehicle[0] < safe_distance) ||
 				(back_vehicle[0] < safe_distance * 2 && back_vehicle[1] > check_speed))
 				costs[i] = 15;
+		}
   }
+	costs[lane] = min(14., costs[lane])
   // Evaluate potential lane change based on lowest cost
   if (lane == 0)
     return min_element(costs.begin(), costs.end() - 1) - costs.begin();
