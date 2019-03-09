@@ -78,6 +78,7 @@ int VehiclePlanner::laneCost(double s, int lane, vector<vector<double>> sensor_f
   vector <double> front_vehicle;
   vector <double> back_vehicle;
 	vector <double> vehicle = closestVehicle(s, lane, sensor_fusion, true);
+	cout << "I am here!"
 	double check_speed;
 	if (vehicle[0] > safe_distance) check_speed = speed_limit;
 	else check_speed = vehicle[1];
@@ -95,16 +96,15 @@ int VehiclePlanner::laneCost(double s, int lane, vector<vector<double>> sensor_f
 			(i != 1 && front_vehicle[0] < safe_distance * 2)) {
 			if (front_vehicle[1] < check_speed) costs[i] = 15;
 			if (front_vehicle[1] < speed_limit && front_vehicle[1] > check_speed) {
-				if (front_vehicle[0] > safe_distance * .5 && i != lane)
+				if (front_vehicle[0] > safe_distance * .5 && lane != i)
 					costs[i] += 5 - vehicle[1] / 10;
 				else costs[i] = 15;
 			}
 		}
-		if (lane != i) {
+		if (lane != i)
 			if ((back_vehicle[0] < safe_distance) ||
 				(back_vehicle[0] < safe_distance * 2 && back_vehicle[1] > check_speed))
 				costs[i] = 15;
-		}
   }
 	cout << costs[0] << ", " << costs[1] << ", " << costs[2] << endl;
 	costs[lane] = min(14., costs[lane]);
