@@ -143,13 +143,10 @@ int main() {
             double lane = vp.curr_lane;
             double next_d = (lane * 4) + 2 + move;
 						cout << next_d << ", " << car_d << endl;
-						if (move == 0) {
-							if (fabs(car_d - next_d) > .3) vp.horizon -= .2;
-							else vp.horizon += .2;
-						}
-						else vp.horizon = 50;
+						if (fabs(car_d - next_d) > .3) vp.horizon -= .1;
+						else vp.horizon += .1;
 						if (vp.horizon > 50) vp.horizon = 50;
-						if (vp.horizon < 25) vp.horizon = 25;
+						if (vp.horizon < 30) vp.horizon = 25;
             // Set further waypoints based on going further along highway in desired lane
             vector <double> wp1 = getXY(car_s + vp.horizon, next_d, map_waypoints_s, 
 																				map_waypoints_x, map_waypoints_y);
