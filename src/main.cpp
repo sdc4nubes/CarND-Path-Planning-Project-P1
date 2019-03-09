@@ -147,6 +147,7 @@ int main() {
 							if (fabs(car_d - next_d) > .5) vp.horizon -= 5;
 							else vp.horizon += 5;
 						}
+						else vp.horizon = 50;
 						if (vp.horizon > 50) vp.horizon = 50;
 						if (vp.horizon < 25) vp.horizon = 25;
             // Set further waypoints based on going further along highway in desired lane
