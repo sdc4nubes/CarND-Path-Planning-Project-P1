@@ -143,6 +143,7 @@ int main() {
 						double lane = vp.curr_lane;
 						double next_d = (lane * 4) + 2 + move;
 						int horizon = 50;
+						if (car_speed < vp.speed_limit * .8) horizon = 20;
             // Set further waypoints based on going further along highway in desired lane
             vector <double> wp1 = getXY(car_s + horizon, next_d, map_waypoints_s, 
 																				map_waypoints_x, map_waypoints_y);
@@ -176,7 +177,7 @@ int main() {
               const int MAX_ACCEL = 6;
 							// Limit acceleration to prevent jerk
               const double accel = MAX_ACCEL * 0.02;
-              for(int i = 0; i < 50 - path_size; i++) {
+              for(int i = 0; i < horizon - path_size; i++) {
 								// Accelerate if under target speed
                 if (ref_vel < vp.target_vehicle_speed - accel) ref_vel += accel;
 								// Brake if over target speed
