@@ -101,7 +101,7 @@ int VehiclePlanner::laneCost(double s, int lane, vector<vector<double>> sensor_f
 				costs[i] = 15;
 		}
   }
-	costs[lane] = min(14., costs[lane])
+	costs[lane] = min(14., costs[lane]);
   // Evaluate potential lane change based on lowest cost
   if (lane == 0)
     return min_element(costs.begin(), costs.end() - 1) - costs.begin();
