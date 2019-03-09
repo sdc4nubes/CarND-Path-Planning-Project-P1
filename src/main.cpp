@@ -140,8 +140,9 @@ int main() {
             vector<double> frenet_vec = getFrenet(
 							ref_x, ref_y, ref_yaw, map_waypoints_x, map_waypoints_y);
 						double lane = vp.curr_lane;
-						double next_d = (lane * 4) + 2 + vp.move;
+						double next_d;
 						if (vp.changing_lanes && vp.next_lane == lane) vp.changing_lanes = false;
+						else if (vp.changing_lanes) next_d = (lane * 4) + 2 + vp.move;
 						if (not vp.changing_lanes) {
 							vp.move = vp.lanePlanner(frenet_vec[0], frenet_vec[1], sensor_fusion);
 							next_d = (lane * 4) + 2 + vp.move;
