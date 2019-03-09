@@ -141,14 +141,15 @@ int main() {
 							ref_x, ref_y, ref_yaw, map_waypoints_x, map_waypoints_y);
 						double move = 0;
 						double lane = vp.curr_lane;
-						double next_d;
+						double next_d = (lane * 4) + 2;
 						if (vp.changing_lanes && vp.next_lane == lane) vp.changing_lanes = false;
 						if (not vp.changing_lanes) {
 							move = vp.lanePlanner(frenet_vec[0], frenet_vec[1], sensor_fusion);
-							if (move != 0) vp.changing_lanes = true;
-						}
-						next_d = (lane * 4) + 2 + move;
-						vp.next_lane = vp.laneCalc(next_d);
+							if (move != 0) {
+								vp.changing_lanes = true;
+								next_d += move;
+								vp.next_lane = vp.laneCalc(next_d);
+							}
 						int horizon = 50;
             // Set further waypoints based on going further along highway in desired lane
             vector <double> wp1 = getXY(car_s + horizon, next_d, map_waypoints_s, 
