@@ -174,9 +174,9 @@ int main() {
               double target_y = s(target_x);
               double target_dist = sqrt(pow(target_x, 2) + pow(target_y, 2));
               double x_add_on = 0;
-              const int MAX_ACCEL= 10; // meters/second/second
+              const int MAX_ACCEL = 4;
 							// Limit acceleration to prevent jerk
-              const double accel = MAX_ACCEL * 0.02 * 0.5;
+              const double accel = MAX_ACCEL * 0.02;
               for(int i = 0; i < 50 - path_size; i++) {
 								// Accelerate if under target speed
                 if (ref_vel < vp.target_vehicle_speed - accel) ref_vel += accel;
