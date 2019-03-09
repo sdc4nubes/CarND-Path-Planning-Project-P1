@@ -11,8 +11,6 @@ int VehiclePlanner::lanePlanner(double s, double d, vector<vector<double>> senso
   if (distance > safe_distance && lane != 2) {
     new_lane = lane;
     target_vehicle_speed = speed_limit;
-		// Reset average costs for laneCost()
-    avg_costs = {15, 15, 15}; 
     return 0;
   } else {
 		// Determine new lane based on cost model
