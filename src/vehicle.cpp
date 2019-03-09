@@ -90,7 +90,7 @@ int VehiclePlanner::laneCost(double s, int lane, vector<vector<double>> sensor_f
 		// Prohibitive cost for vehicle ahead too close
     if (i != lane && front_vehicle[0] < safe_distance) costs[i] = 15; 
 		// Positive cost for slower vehicle in front
-		if (front_vehicle[0] < safe_distance * 1.1) {
+		if (front_vehicle[0] < safe_distance * 10) {
 			if (front_vehicle[1] < check_speed) costs[i] = 15;
 			if (front_vehicle[1] < speed_limit) costs[i] += 10;
 		}
