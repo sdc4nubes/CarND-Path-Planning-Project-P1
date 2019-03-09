@@ -174,7 +174,7 @@ int main() {
               double target_y = s(target_x);
               double target_dist = sqrt(pow(target_x, 2) + pow(target_y, 2));
               double x_add_on = 0;
-              const int MAX_ACCEL = 4;
+              const int MAX_ACCEL = 6;
 							// Limit acceleration to prevent jerk
               const double accel = MAX_ACCEL * 0.02;
               for(int i = 0; i < 50 - path_size; i++) {
