@@ -9,10 +9,11 @@ using namespace std;
 class VehiclePlanner {
   public:
     int curr_lane;
-		double speed_limit = 22.3;
-    double curr_lead_vehicle_speed = speed_limit;
+		double speed_limit_mph = 50;
+		double speed_limit_mps = speed_limit_mph * .44704;
+    double curr_lead_vehicle_speed = speed_limit_mps;
     double target_vehicle_speed;
-		int unsafe_distance = 30;
+		int unsafe_distance = 20;
     // Decides whether to go left, right, or stay in the same lane
     // Returns amount of meters left or right to move
     int lanePlanner(double s, double d, vector<vector<double>> sensor_fusion);
