@@ -3,21 +3,21 @@
 int VehiclePlanner::lanePlanner(double s, double d, vector<vector<double>> sensor_fusion) {
   int lane = laneCalc(d);
   int new_lane;
-  double distance = closestVehicle(s, lane, sensor_fusion, true)[0];
+  vector <double> vehicle = closestVehicle(s, lane, sensor_fusion, true);
 	// Stay in current lane until deciding to change
   curr_lane = lane; 
 	// if adequate space in front and not in right lane,
 	// stay in lane and go near the speed limit
-  if (distance > unsafe_distance && lane == 1) {
+  if (vehicle[0] > unsafe_distance && lane == 1) {
     new_lane = lane;
     target_vehicle_speed = speed_limit_mps;
     return 0;
   } else {
 		// Determine new lane based on cost model
     new_lane = laneCost(s, lane, sensor_fusion);
-    vector <double> vehicle = closestVehicle(s, new_lane, sensor_fusion, true);
+    vehicle = closestVehicle(s, new_lane, sensor_fusion, true);
 		target_vehicle_speed = speed_limit_mps;
-    if( vehicle[0] < unsafe_distance) target_vehicle_speed = vehicle[1] *.5;
+    if( vehicle[0] < unsafe_distance) target_vehicle_speed = vehicle[1] *.98;
 		if (vehicle[0] < unsafe_distance * .5) target_vehicle_speed *= .1;
   }
   // Return New Lane (0 = stay in lane, -4 = change left, 4 = change right)
@@ -102,7 +102,7 @@ int VehiclePlanner::laneCost(double s, int lane, vector<vector<double>> sensor_f
 			else if (front_vehicle[0] < unsafe_distance) costs[i] = 15;
 		}
 		if (lane != i) {
-			if ((back_vehicle[0] < unsafe_distance * 1.5) ||
+			if ((back_vehicle[0] < unsafe_distance * 2) ||
 				(back_vehicle[0] < unsafe_distance * 3 && back_vehicle[1] > speed_limit_mph))
 				costs[i] = 15;
 			if (front_vehicle[0] > unsafe_distance && front_vehicle[0] < unsafe_distance * 10) {
