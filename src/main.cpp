@@ -173,10 +173,10 @@ int main() {
               double target_y = s(target_x);
               double target_dist = sqrt(pow(target_x, 2) + pow(target_y, 2));
               double x_add_on = 0;
-              const int MAX_ACCEL = 5;
-							if (fabs(car_d - next_d) > 4) MAX_ACCEL = 0;
+              int max_accel = 5;
+							if (fabs(car_d - next_d) > 4) max_accel = 0;
 							// Limit acceleration to prevent jerk
-              const double accel = MAX_ACCEL * 0.02;
+              const double accel = max_accel * 0.02;
               for(int i = 0; i < horizon - path_size; i++) {
 								// Accelerate if under target speed
                 if (ref_vel < vp.target_vehicle_speed - accel) ref_vel += accel;
