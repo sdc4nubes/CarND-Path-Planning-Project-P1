@@ -140,11 +140,9 @@ int main() {
             vector<double> frenet_vec = getFrenet(
 							ref_x, ref_y, ref_yaw, map_waypoints_x, map_waypoints_y);
 						double lane = vp.curr_lane;
-						double move;
-						if (int(round(car_d)) != lane * 4 + 2) move = 0;
-						else move = vp.lanePlanner(frenet_vec[0], frenet_vec[1], sensor_fusion);
-						cout << move << endl;
+						double move = vp.lanePlanner(frenet_vec[0], frenet_vec[1], sensor_fusion);
 						double next_d = (lane * 4) + 2 + move;
+						if (fabs(next_d - car_d) > 4.5) next_d -= move;
 						int horizon = max(10, int(car_speed));
             // Set further waypoints based on going further along highway in desired lane
             vector <double> wp1 = getXY(car_s + horizon, next_d, map_waypoints_s, 
