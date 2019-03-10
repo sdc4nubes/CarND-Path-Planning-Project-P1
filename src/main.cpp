@@ -174,6 +174,7 @@ int main() {
               double target_dist = sqrt(pow(target_x, 2) + pow(target_y, 2));
               double x_add_on = 0;
               const int MAX_ACCEL = 5;
+							if (fabs(car_d - next_d) > 4) MAX_ACCEL = 0;
 							// Limit acceleration to prevent jerk
               const double accel = MAX_ACCEL * 0.02;
               for(int i = 0; i < horizon - path_size; i++) {
