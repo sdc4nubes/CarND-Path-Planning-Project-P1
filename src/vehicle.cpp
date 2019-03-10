@@ -8,7 +8,7 @@ int VehiclePlanner::lanePlanner(double s, double d, vector<vector<double>> senso
   curr_lane = lane; 
 	// if adequate space in front and not in right lane,
 	// stay in lane and go near the speed limit
-  if (distance > safe_distance && lane == 1) {
+  if (distance > unsafe_distance && lane == 1) {
     new_lane = lane;
     target_vehicle_speed = speed_limit;
     return 0;
@@ -17,8 +17,8 @@ int VehiclePlanner::lanePlanner(double s, double d, vector<vector<double>> senso
     new_lane = laneCost(s, lane, sensor_fusion);
     vector <double> vehicle = closestVehicle(s, new_lane, sensor_fusion, true);
 		target_vehicle_speed = speed_limit;
-    if( vehicle[0] < safe_distance) target_vehicle_speed = vehicle[1];
-		if (vehicle[0] < safe_distance * .5) target_vehicle_speed *= .1;
+    if( vehicle[0] < unsafe_distance) target_vehicle_speed = vehicle[1];
+		if (vehicle[0] < unsafe_distance * .5) target_vehicle_speed *= .1;
   }
   // Return New Lane (0 = stay in lane, -4 = change left, 4 = change right)
   if (new_lane == lane) return 0;
@@ -79,7 +79,7 @@ int VehiclePlanner::laneCost(double s, int lane, vector<vector<double>> sensor_f
   vector <double> back_vehicle;
 	vector <double> vehicle = closestVehicle(s, lane, sensor_fusion, true);
 	double check_speed;
-	if (vehicle[0] > safe_distance) check_speed = speed_limit;
+	if (vehicle[0] > unsafe_distance) check_speed = speed_limit;
 	else check_speed = vehicle[1];
   for (int i = 0; i < 3; i++) {
 		// Lane Cost
@@ -89,23 +89,23 @@ int VehiclePlanner::laneCost(double s, int lane, vector<vector<double>> sensor_f
     front_vehicle = closestVehicle(s, i, sensor_fusion, true);
     back_vehicle = closestVehicle(s, i, sensor_fusion, false);
 		// Prohibitive cost for vehicle ahead too close
-    if (i != lane && front_vehicle[0] < safe_distance) costs[i] = 15; 
+    if (i != lane && front_vehicle[0] < unsafe_distance) costs[i] = 15; 
 		// Positive cost for slower vehicle in front
-		if ((i == 1 && front_vehicle[0] < safe_distance * 1.1) ||
-			(i != 1 && front_vehicle[0] < safe_distance)) {
+		if ((i == 1 && front_vehicle[0] < unsafe_distance * 1.1) ||
+			(i != 1 && front_vehicle[0] < unsafe_distance)) {
 			if (front_vehicle[1] <= check_speed) costs[i] = 15;
 			if (front_vehicle[1] < speed_limit && front_vehicle[1] > check_speed) {
-				if (front_vehicle[0] > safe_distance && lane != i)
+				if (front_vehicle[0] > unsafe_distance && lane != i)
 					costs[i] += 6 - vehicle[1] / 10;
 				else costs[i] = 15;
 			}
-			else if (front_vehicle[0] < safe_distance) costs[i] = 15;
+			else if (front_vehicle[0] < unsafe_distance) costs[i] = 15;
 		}
 		if (lane != i) {
-			if ((back_vehicle[0] < safe_distance) ||
-				(back_vehicle[0] < safe_distance * 2 && back_vehicle[1] > check_speed))
+			if ((back_vehicle[0] < unsafe_distance) ||
+				(back_vehicle[0] < unsafe_distance * 2 && back_vehicle[1] > check_speed))
 				costs[i] = 15;
-			if (front_vehicle[0] > safe_distance && vehicle[0] < safe_distance * 10) {
+			if (front_vehicle[0] > unsafe_distance && vehicle[0] < unsafe_distance * 10) {
 				if (vehicle[1] < check_speed) costs[i] = 15;
 				else costs[i] += 6 - vehicle[1] / 10;
 			}
