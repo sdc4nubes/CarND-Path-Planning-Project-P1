@@ -13,7 +13,7 @@ class VehiclePlanner {
 		double speed_limit_mps = speed_limit_mph * .44704;
     double curr_lead_vehicle_speed = speed_limit_mps;
     double target_vehicle_speed;
-		int unsafe_distance = 15;
+		int unsafe_distance = 10;
     // Decides whether to go left, right, or stay in the same lane
     // Returns amount of meters left or right to move
     int lanePlanner(double s, double d, vector<vector<double>> sensor_fusion);
