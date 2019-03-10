@@ -55,13 +55,13 @@ vector<double> VehiclePlanner::closestVehicle(double s, int lane,
       if (direction == true) {
 				// Capture distance and speed of vehicle directly in front
         if (vehicle_s > s - 10 and (vehicle_s - s - 10) < dist) {
-          dist = vehicle_s - s;
+          dist = vehicle_s - s - 10;
           velocity = vehicle_v;
         }
       } else {
 				// Capture distance and speed of vehicle directly behind
         if (s + 10 >= vehicle_s and (s + 10 - vehicle_s) < dist) {
-          dist = s - vehicle_s;
+          dist = s - vehicle_s + 10;
           velocity = vehicle_v;
         }
       }
