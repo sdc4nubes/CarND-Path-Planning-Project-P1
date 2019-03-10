@@ -141,9 +141,9 @@ int main() {
 							ref_x, ref_y, ref_yaw, map_waypoints_x, map_waypoints_y);
 						double lane = vp.curr_lane;
 						double move;
-						cout << int(round(car_d)) << endl;
-						//if (int(round(car_d)) != lane * 4 + 2) move = 0;
-						move = vp.lanePlanner(frenet_vec[0], frenet_vec[1], sensor_fusion);
+						if (int(round(car_d)) != lane * 4 + 2) move = 0;
+						else move = vp.lanePlanner(frenet_vec[0], frenet_vec[1], sensor_fusion);
+						cout << move << endl;
 						double next_d = (lane * 4) + 2 + move;
 						int horizon = max(10, int(car_speed));
             // Set further waypoints based on going further along highway in desired lane
