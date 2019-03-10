@@ -99,6 +99,7 @@ int VehiclePlanner::laneCost(double s, int lane, vector<vector<double>> sensor_f
 					costs[i] += 6 - vehicle[1] / 10;
 				else costs[i] = 15;
 			}
+			else if (front_vehicle[0] < safe_distance) costs[i] = 15;
 		}
 		if (lane != i)
 			if ((back_vehicle[0] < safe_distance) ||
