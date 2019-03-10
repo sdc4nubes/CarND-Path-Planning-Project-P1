@@ -102,8 +102,8 @@ int VehiclePlanner::laneCost(double s, int lane, vector<vector<double>> sensor_f
 			else if (front_vehicle[0] < unsafe_distance) costs[i] = 15;
 		}
 		if (lane != i) {
-			if ((back_vehicle[0] < unsafe_distance) ||
-				(back_vehicle[0] < unsafe_distance * 2 && back_vehicle[1] > speed_limit_mph))
+			if ((back_vehicle[0] < unsafe_distance * 1.5) ||
+				(back_vehicle[0] < unsafe_distance * 3 && back_vehicle[1] > speed_limit_mph))
 				costs[i] = 15;
 			if (front_vehicle[0] > unsafe_distance && front_vehicle[0] < unsafe_distance * 10) {
 				if (vehicle[1] < check_speed) costs[i] = 15;
