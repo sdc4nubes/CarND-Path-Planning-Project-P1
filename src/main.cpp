@@ -141,7 +141,7 @@ int main() {
 							ref_x, ref_y, ref_yaw, map_waypoints_x, map_waypoints_y);
 						double lane = vp.curr_lane;
 						double move;
-						if (round(car_d) != lane * 4 + 2) move = 0;
+						if (int(round(car_d)) != lane * 4 + 2) move = 0;
 						else move = vp.lanePlanner(frenet_vec[0], frenet_vec[1], sensor_fusion);
 						double next_d = (lane * 4) + 2 + move;
 						int horizon = max(10, int(car_speed));
